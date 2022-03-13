@@ -1,43 +1,115 @@
 import http from 'k6/http';
-import { check,sleep } from 'k6';
+import { check, sleep, group } from 'k6';
 import { Rate } from 'k6/metrics';
-const stressError = new Rate('stress-error');
-const questionsError = new Rate('questions-error');
+const loginError = new Rate('loginError');
+const captchaError = new Rate('captchaError');
+const dashboardError = new Rate('dashboardError');
+const kelompokPtnError = new Rate('kelompokPtnError');
 const URL = 'https://dashboard.utbk.edubrand.id/api/stress-test/'
+// const URL = 'http://127.0.0.1:8000/api/stress-test/'
+
 
 export const options = {
-    discardResponseBodies: true,
     noConnectionReuse: true,
     noVUConnectionReuse: true,
+    discardResponseBodies: true,
     thresholds: {
-        'stress-error': ['rate < 0.2'],
-        'http_req_failed':['rate < 0.05'],
-        'http_req_duration':['p(95)<3000'],
+        'loginError': ['rate < 0.2'],
+        'captchaError': ['rate < 0.2'],
+        'dashboardError': ['rate < 0.2'],
+        'kelompokPtnError': ['rate < 0.2'],
     },
-    stages: [
-        { duration: '10s', target: 250 },
-        { duration: '5m', target: 750 },
-        { duration: '20s', target: 5000 },
-        { duration: '5m', target: 5000 },
-        { duration: '10s', target: 750 },
-        { duration: '2m', target: 250 },
-        { duration: '5s', target: 0 },
-    ],
+    scenarios: {
+        loginScenario: {
+            executor: 'ramping-vus',
+            startVUs: 500,
+            stages: [
+                { duration: '5m', target: 1000 },
+                { duration: '15m', target: 1000 },
+                { duration: '5m', target: 500 },
+                { duration: '30s', target: 100 },
+            ],
+            gracefulRampDown: '30s',
+            exec: 'login'
+        },
+        dashboardScenario: {
+            executor: 'ramping-vus',
+            startVUs: 500,
+            stages: [
+                { duration: '5m', target: 1000 },
+                { duration: '15m', target: 1000 },
+                { duration: '5m', target: 500 },
+                { duration: '30s', target: 100 },
+            ],
+            gracefulRampDown: '30s',
+            exec: 'login'
+        },
+        // kelompokPtnScenario : {
+        //     executor: 'ramping-vus',
+        //     startVUs: 0,
+        //     stages: [
+        //         { duration: '20s', target: 10 },
+        //         { duration: '20s', target: 12 },
+        //         { duration: '20s', target: 14 },
+        //         { duration: '20s', target: 15 },
+        //         { duration: '20s', target: 19 },
+        //         { duration: '20s', target: 20 },
+        //         { duration: '20s', target: 25 },
+        //         { duration: '20s', target: 13 },
+        //         { duration: '20s', target: 12 },
+        //         { duration: '20s', target: 10 },
+        //         { duration: '20s', target: 8 },
+        //         { duration: '20s', target: 0 },
+        //     ],
+        //     gracefulRampDown: '30s',
+        //     exec: 'kelompokPtn'
+        // },
+    },
 };
 
-
-export default function stress() {
-    let res = http.get(`${URL}submit?id_ujian=120402&token=7pwDi11qQz0UkTphMwfxOp4S46r2RVUrgb5lZR6JU4AoyBOBP4vDm87LbjCOQLnb&detail_id=243723`);
-    console.log('Response time was ' + String(res.timings.duration) + ' ms')
-    let success = check(res, { "is status 201": (r) => r.status === 201 });
-    console.log(`stress ${res.status}`);
-    stressError.add(!success);
-    sleep(1)
+export function login(){
+    
+    group('captcha', function(){
+        let captchaRequest = http.get(`${URL}captcha`)
+        let captchaResult = check(captchaRequest, {
+            'is status 200': (r) => r.status === 200,
+        })
+        console.log(`Group Captcha | ITER ${__ITER} | VU ${__VU} | status ${captchaRequest.status}`)
+        captchaError.add(!captchaResult);
+    })
+    
+    group('login', function() {
+        let loginBody = {
+            tahun_kelulusan: '2022'
+        }
+        let loginRequest = http.post(`${URL}login`, loginBody)
+        let loginResult = check(loginRequest, {
+            'is status 200': (r) => r.status === 200,
+        })
+        console.log(`Group Login | ITER ${__ITER} | VU ${__VU} | status ${loginRequest.status}`)
+        loginError.add(!loginResult);
+    })
 }
 
-export function questions() {
-    let res = http.get(`https://ujian.akm.edubrand.id/stress-test/questions/${__ITER}`);
-    let success = check(res, { "is status 200": (r) => r.status === 200 });
-    console.log(`questions ${res.status}`);
-    questionsError.add(!success);
+export function dashboard(){
+    group('dashboard', function(){
+        let dashboardRequest = http.get(`${URL}294506/dashboard`)
+        let dashboardResult = check(dashboardRequest, {
+            'is status 200': (r) => r.status === 200,
+        })
+        console.log(`Group Dashboard | ITER ${__ITER} | VU ${__VU} | status ${dashboardRequest.status}`)
+        dashboardError.add(!dashboardResult);
+    })
+}
+
+export function kelompokPtn(){
+    group('kelompokPtn', function() {
+        let kelompokRequest = http.get(`${URL}kelompok/ptn?kelompok=saintek`)
+        let kelompokResult = check(kelompokRequest, {
+            'is status 200': (r) => r.status === 200,
+        })
+        console.log(`TEST 2 | ITER ${__ITER} | VU ${__VU} | status ${kelompokRequest.status}`)
+        kelompokPtnError.add(!kelompokResult);
+    })
+    
 }

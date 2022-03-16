@@ -14,8 +14,8 @@ const cekPilihanPtnError = new Rate('cekPilihanPtnError');
 const kelompokPtnError = new Rate('kelompokPtnError');
 const ptnError = new Rate('ptnError');
 const ptn2Error = new Rate('ptn2Error');
-// const URL = 'https://dashboard.utbk.edubrand.id/api/stress-test/'
-const URL = 'http://127.0.0.1:8000/api/stress-test/'
+const URL = 'https://dashboard.utbk.edubrand.id/api/stress-test/'
+// const URL = 'http://127.0.0.1:8000/api/stress-test/'
 
 
 export const options = {
@@ -40,48 +40,48 @@ export const options = {
     scenarios: {
         loginScenario: {
             executor: 'ramping-vus',
-            startVUs: 1,
+            startVUs: 100,
             stages: [
-                { duration: '5m', target: 5 },
-                { duration: '15m', target: 5 },
-                { duration: '5m', target: 5 },
-                { duration: '30s', target: 5 },
+                { duration: '1m', target: 250 },
+                { duration: '2m', target: 500 },
+                { duration: '3m', target: 500 },
+                { duration: '30s', target: 100 },
             ],
             gracefulRampDown: '30s',
             exec: 'login'
         },
         dashboardScenario: {
             executor: 'ramping-vus',
-            startVUs: 1,
+            startVUs: 100,
             stages: [
-                { duration: '5m', target: 5 },
-                { duration: '15m', target: 5 },
-                { duration: '5m', target: 5 },
-                { duration: '30s', target: 5 },
+                { duration: '1m', target: 250 },
+                { duration: '2m', target: 500 },
+                { duration: '3m', target: 500 },
+                { duration: '30s', target: 100 },
             ],
             gracefulRampDown: '30s',
             exec: 'dashboard'
         },
         pasKlikMulaiScenario : {
             executor: 'ramping-vus',
-            startVUs: 1,
+            startVUs: 100,
             stages: [
-                { duration: '5m', target: 5 },
-                { duration: '15m', target: 5 },
-                { duration: '5m', target: 5 },
-                { duration: '30s', target: 5 },
+                { duration: '1m', target: 250 },
+                { duration: '2m', target: 500 },
+                { duration: '3m', target: 500 },
+                { duration: '30s', target: 100 },
             ],
             gracefulRampDown: '30s',
             exec: 'pasKlikMulai'
         },
         setelahKlikMulaiScenario : {
             executor: 'ramping-vus',
-            startVUs: 1,
+            startVUs: 100,
             stages: [
-                { duration: '5m', target: 5 },
-                { duration: '15m', target: 5 },
-                { duration: '5m', target: 5 },
-                { duration: '30s', target: 5 },
+                { duration: '1m', target: 250 },
+                { duration: '2m', target: 500 },
+                { duration: '3m', target: 500 },
+                { duration: '30s', target: 100 },
             ],
             gracefulRampDown: '30s',
             exec: 'setelahKlikMulai'

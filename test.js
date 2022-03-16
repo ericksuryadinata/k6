@@ -40,48 +40,51 @@ export const options = {
     scenarios: {
         loginScenario: {
             executor: 'ramping-vus',
-            startVUs: 100,
+            startVUs: 10,
             stages: [
-                { duration: '1m', target: 250 },
-                { duration: '2m', target: 500 },
-                { duration: '3m', target: 500 },
-                { duration: '30s', target: 100 },
+                { duration: '1m', target: 10 },
+                { duration: '2m', target: 20 },
+                { duration: '3m', target: 10 },
+                { duration: '30s', target: 10 },
             ],
             gracefulRampDown: '30s',
             exec: 'login'
         },
         dashboardScenario: {
             executor: 'ramping-vus',
-            startVUs: 100,
+            startVUs: 10,
+            startTime: '1m',
             stages: [
-                { duration: '1m', target: 250 },
-                { duration: '2m', target: 500 },
-                { duration: '3m', target: 500 },
-                { duration: '30s', target: 100 },
+                { duration: '1m', target: 10 },
+                { duration: '2m', target: 20 },
+                { duration: '3m', target: 10 },
+                { duration: '30s', target: 10 },
             ],
             gracefulRampDown: '30s',
             exec: 'dashboard'
         },
         pasKlikMulaiScenario : {
             executor: 'ramping-vus',
-            startVUs: 100,
+            startVUs: 10,
+            startTime: '2m',
             stages: [
-                { duration: '1m', target: 250 },
-                { duration: '2m', target: 500 },
-                { duration: '3m', target: 500 },
-                { duration: '30s', target: 100 },
+                { duration: '1m', target: 10 },
+                { duration: '2m', target: 20 },
+                { duration: '3m', target: 10 },
+                { duration: '30s', target: 10 },
             ],
             gracefulRampDown: '30s',
             exec: 'pasKlikMulai'
         },
         setelahKlikMulaiScenario : {
             executor: 'ramping-vus',
-            startVUs: 100,
+            startVUs: 10,
+            startTime: '2m',
             stages: [
-                { duration: '1m', target: 250 },
-                { duration: '2m', target: 500 },
-                { duration: '3m', target: 500 },
-                { duration: '30s', target: 100 },
+                { duration: '1m', target: 10 },
+                { duration: '2m', target: 20 },
+                { duration: '3m', target: 10 },
+                { duration: '30s', target: 10 },
             ],
             gracefulRampDown: '30s',
             exec: 'setelahKlikMulai'

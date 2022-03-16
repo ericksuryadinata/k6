@@ -6,7 +6,14 @@ const captchaError = new Rate('captchaError');
 const dashboardError = new Rate('dashboardError');
 const paketTryoutError = new Rate('paketTryoutError');
 const peringkatDashboardError = new Rate('peringkatDashboardError');
+const paymentError = new Rate('paymentError');
+const subpaketError = new Rate('subpaketError');
+const paketSoalError = new Rate('paketSoalError');
+const validasiJadwalError = new Rate('validasiJadwalError');
+const cekPilihanPtnError = new Rate('cekPilihanPtnError');
 const kelompokPtnError = new Rate('kelompokPtnError');
+const ptnError = new Rate('ptnError');
+const ptn2Error = new Rate('ptn2Error');
 // const URL = 'https://dashboard.utbk.edubrand.id/api/stress-test/'
 const URL = 'http://127.0.0.1:8000/api/stress-test/'
 
@@ -14,14 +21,21 @@ const URL = 'http://127.0.0.1:8000/api/stress-test/'
 export const options = {
     noConnectionReuse: true,
     noVUConnectionReuse: true,
-    discardResponseBodies: true,
+    // discardResponseBodies: true,
     thresholds: {
         'loginError': ['rate < 0.2'],
         'captchaError': ['rate < 0.2'],
         'dashboardError': ['rate < 0.2'],
         'paketTryoutError': ['rate < 0.2'],
-        'kelompokPtnError': ['rate < 0.2'],
         'peringkatDashboardError': ['rate < 0.2'],
+        'paymentError': ['rate < 0.2'],
+        'subpaketError': ['rate < 0.2'],
+        'paketSoalError': ['rate < 0.2'],
+        'validasiJadwalError': ['rate < 0.2'],
+        'cekPilihanPtnError': ['rate < 0.2'],
+        'kelompokPtnError': ['rate < 0.2'],
+        'ptnError': ['rate < 0.2'],
+        'ptn2Error': ['rate < 0.2'],
     },
     scenarios: {
         loginScenario: {
@@ -36,107 +50,196 @@ export const options = {
             gracefulRampDown: '30s',
             exec: 'login'
         },
-        // dashboardScenario: {
-        //     executor: 'ramping-vus',
-        //     startVUs: 500,
-        //     stages: [
-        //         { duration: '5m', target: 1000 },
-        //         { duration: '15m', target: 1000 },
-        //         { duration: '5m', target: 500 },
-        //         { duration: '30s', target: 100 },
-        //     ],
-        //     gracefulRampDown: '30s',
-        //     exec: 'dashboard'
-        // },
-        // kelompokPtnScenario : {
-        //     executor: 'ramping-vus',
-        //     startVUs: 0,
-        //     stages: [
-        //         { duration: '20s', target: 10 },
-        //         { duration: '20s', target: 12 },
-        //         { duration: '20s', target: 14 },
-        //         { duration: '20s', target: 15 },
-        //         { duration: '20s', target: 19 },
-        //         { duration: '20s', target: 20 },
-        //         { duration: '20s', target: 25 },
-        //         { duration: '20s', target: 13 },
-        //         { duration: '20s', target: 12 },
-        //         { duration: '20s', target: 10 },
-        //         { duration: '20s', target: 8 },
-        //         { duration: '20s', target: 0 },
-        //     ],
-        //     gracefulRampDown: '30s',
-        //     exec: 'kelompokPtn'
-        // },
+        dashboardScenario: {
+            executor: 'ramping-vus',
+            startVUs: 1,
+            stages: [
+                { duration: '5m', target: 5 },
+                { duration: '15m', target: 5 },
+                { duration: '5m', target: 5 },
+                { duration: '30s', target: 5 },
+            ],
+            gracefulRampDown: '30s',
+            exec: 'dashboard'
+        },
+        pasKlikMulaiScenario : {
+            executor: 'ramping-vus',
+            startVUs: 1,
+            stages: [
+                { duration: '5m', target: 5 },
+                { duration: '15m', target: 5 },
+                { duration: '5m', target: 5 },
+                { duration: '30s', target: 5 },
+            ],
+            gracefulRampDown: '30s',
+            exec: 'pasKlikMulai'
+        },
+        setelahKlikMulaiScenario : {
+            executor: 'ramping-vus',
+            startVUs: 1,
+            stages: [
+                { duration: '5m', target: 5 },
+                { duration: '15m', target: 5 },
+                { duration: '5m', target: 5 },
+                { duration: '30s', target: 5 },
+            ],
+            gracefulRampDown: '30s',
+            exec: 'setelahKlikMulai'
+        },
     },
 };
 
 export function login(){
     
     group('captcha', function(){
-        let captchaRequest = http.get(`${URL}captcha`)
-        let captchaResult = check(captchaRequest, {
+        let request = http.get(`${URL}captcha`)
+        let result = check(request, {
             'is status 200': (r) => r.status === 200,
         })
-        console.log(`C|I${__ITER}|VU${__VU}|${captchaRequest.status}|CTime ${captchaRequest.headers['X-Compute-Time']}|STime ${captchaRequest.headers['X-Syscall-Time']}`)
-        captchaError.add(!captchaResult);
+        console.log(`LOGIN|C|I${__ITER}|VU${__VU}|${request.status}|CTime ${request.headers['X-Compute-Time']}|STime ${request.headers['X-Syscall-Time']}`)
+        captchaError.add(!result);
     })
     
     group('login', function() {
-        let loginBody = {
+        let body = {
             tahun_kelulusan: '2022'
         }
-        let loginRequest = http.post(`${URL}login`, loginBody)
-        let loginResult = check(loginRequest, {
+        let request = http.post(`${URL}login`, body)
+        let result = check(request, {
             'is status 200': (r) => r.status === 200,
         })
-        console.log(`L|I${__ITER}|VU${__VU}|${loginRequest.status}|CTime ${loginRequest.headers['X-Compute-Time']}|STime ${loginRequest.headers['X-Syscall-Time']}`)
-        loginError.add(!loginResult);
+        console.log(`LOGIN|L|I${__ITER}|VU${__VU}|${request.status}|CTime ${request.headers['X-Compute-Time']}|STime ${request.headers['X-Syscall-Time']}`)
+        loginError.add(!result);
     })
 }
 
 export function dashboard(){
     group('dashboard', function(){
-        let dashboardRequest = http.get(`${URL}294506/dashboard`)
-        let dashboardResult = check(dashboardRequest, {
+        let request = http.get(`${URL}294506/dashboard`)
+        let result = check(request, {
             'is status 200': (r) => r.status === 200,
         })
-        console.log(`Group Dashboard | ITER ${__ITER} | VU ${__VU} | status ${dashboardRequest.status}|CTime ${dashboardRequest.headers['X-Compute-Time']}|STime ${dashboardRequest.headers['X-Syscall-Time']}`)
-        dashboardError.add(!dashboardResult);
+        console.log(`DASHBOARD|D|I${__ITER}|VU${__VU}|${request.status}|CTime ${request.headers['X-Compute-Time']}|STime ${request.headers['X-Syscall-Time']}`)
+        dashboardError.add(!result);
     })
 
     group('paketTryout', function(){
-        let paketTryoutRequest = http.get(`${URL}294506/paketTryout`)
-        let paketTryoutResult = check(paketTryoutRequest, {
+        let request = http.get(`${URL}294506/paketTryout`)
+        let result = check(request, {
             'is status 200': (r) => r.status === 200,
         })
-        console.log(`Group Paket Tryout | ITER ${__ITER} | VU ${__VU} | status ${paketTryoutRequest.status}|CTime ${paketTryoutRequest.headers['X-Compute-Time']}|STime ${paketTryoutRequest.headers['X-Syscall-Time']}`)
-        paketTryoutError.add(!paketTryoutResult);
+        console.log(`DASHBOARD|PT|I${__ITER}|VU${__VU}|${request.status}|CTime ${request.headers['X-Compute-Time']}|STime ${request.headers['X-Syscall-Time']}`)
+        paketTryoutError.add(!result);
     })
 
     group('peringkatDashboard', function(){
-        let peringkatDashboardRequest = http.get(`${URL}peringkatDashboard`)
-        let peringkatDashboardResult = check(peringkatDashboardRequest, {
+        let request = http.get(`${URL}peringkatDashboard`)
+        let result = check(request, {
             'is status 200': (r) => r.status === 200,
         })
-        console.log(`Group Paket Tryout | ITER ${__ITER} | VU ${__VU} | status ${peringkatDashboardRequest.status}|CTime ${peringkatDashboardRequest.headers['X-Compute-Time']}|STime ${paketTryoutRequest.headers['X-Syscall-Time']}`)
-        peringkatDashboardError.add(!peringkatDashboardResult);
+        console.log(`DASHBOARD|PD|ITER ${__ITER}|VU ${__VU}|${request.status}|CTime ${request.headers['X-Compute-Time']}|STime ${request.headers['X-Syscall-Time']}`)
+        peringkatDashboardError.add(!result);
+    })
+
+    
+    group('payment', function() {
+        let body = {
+            peserta_id: '294506'
+        }
+        let request = http.post(`${URL}login`, body)
+        let result = check(request, {
+            'is status 200': (r) => r.status === 200,
+        })
+        console.log(`DASHBOARD|PY|I${__ITER}|VU${__VU}|${request.status}|CTime ${request.headers['X-Compute-Time']}|STime ${request.headers['X-Syscall-Time']}`)
+        paymentError.add(!result);
     })
 }
 
-export function ujian(){
+export function pasKlikMulai(){
 
-    group('validasi jadwal', function(){
-
-    })
-
-    group('kelompokPtn', function() {
-        let kelompokRequest = http.get(`${URL}kelompok/ptn?kelompok=saintek`)
-        let kelompokResult = check(kelompokRequest, {
+    group('subpaket', function(){
+        let request = http.get(`${URL}32/subpaket`)
+        let result = check(request, {
             'is status 200': (r) => r.status === 200,
         })
-        console.log(`TEST 2 | ITER ${__ITER} | VU ${__VU} | status ${kelompokRequest.status}`)
-        kelompokPtnError.add(!kelompokResult);
+        console.log(`PKM|SP|I${__ITER}|VU${__VU}|${request.status}|CTime ${request.headers['X-Compute-Time']}|STime ${request.headers['X-Syscall-Time']}`)
+        subpaketError.add(!result);
+    })
+
+    group('paketSoal', function() {
+        let body = {
+            ids: [83]
+        }
+        let params = {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
+        let request = http.post(`${URL}paketSoal`, JSON.stringify(body), params)
+        let result = check(request, {
+            'is status 200': (r) => r.status === 200,
+        })
+        console.log(`PKM|PS|I${__ITER}|VU${__VU}|${request.status}|CTime ${request.headers['X-Compute-Time']}|STime ${request.headers['X-Syscall-Time']}`)
+        paketSoalError.add(!result);
+    })
+
+    group('validasi', function(){
+        let request = http.get(`${URL}validasi/294506/84`)
+        let result = check(request, {
+            'is status 200': (r) => r.status === 200,
+        })
+        console.log(`PKM|V|I${__ITER}|VU${__VU}|${request.status}|CTime ${request.headers['X-Compute-Time']}|STime ${request.headers['X-Syscall-Time']}`)
+        validasiJadwalError.add(!result);
     })
     
+}
+
+export function setelahKlikMulai(){
+
+    group('kelompokPtn', function() {
+        let request = http.get(`${URL}kelompokPtn?kelompok=saintek`)
+        let result = check(request, {
+            'is status 200': (r) => r.status === 200,
+        })
+        console.log(`SKM|KP|I${__ITER}|VU${__VU}|${request.status}|CTime ${request.headers['X-Compute-Time']}|STime ${request.headers['X-Syscall-Time']}`)
+        kelompokPtnError.add(!result);
+    })
+
+    group('cekPilihanPtn', function() {
+        let body = {
+            "id_peserta":294506,
+            "id_paket_soal":75
+        }
+
+        let params = {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
+        let request = http.post(`${URL}cekPilihanPtn`, JSON.stringify(body), params)
+        let result = check(request, {
+            'is status 200': (r) => r.status === 200,
+        })
+        console.log(`SKM|CPP|I${__ITER}|VU${__VU}|${request.status}|CTime ${request.headers['X-Compute-Time']}|STime ${request.headers['X-Syscall-Time']}`)
+        cekPilihanPtnError.add(!result);
+    })
+
+    group('ptn', function() {
+        let request = http.get(`${URL}ptn?kelompok=SAINTEK&nama=UNIVERSITAS%20SYIAH%20KUALA`)
+        let result = check(request, {
+            'is status 200': (r) => r.status === 200,
+        })
+        console.log(`SKM|PTN|I${__ITER}|VU${__VU}|${request.status}|CTime ${request.headers['X-Compute-Time']}|STime ${request.headers['X-Syscall-Time']}`)
+        ptnError.add(!result);
+    })
+
+    group('ptn2', function() {
+        let request = http.get(`${URL}ptn2?kelompok=SAINTEK&nama=UNIVERSITAS%20SYIAH%20KUALA`)
+        let result = check(request, {
+            'is status 200': (r) => r.status === 200,
+        })
+        console.log(`SKM|PTN2|I${__ITER}|VU${__VU}|${request.status}|CTime ${request.headers['X-Compute-Time']}|STime ${request.headers['X-Syscall-Time']}`)
+        ptn2Error.add(!result);
+    })
+
 }

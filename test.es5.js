@@ -64,7 +64,9 @@
     };
     __webpack_require__.p = "";
     return __webpack_require__(__webpack_require__.s = 38);
-}([ function(module, exports, __webpack_require__) {
+}([ function(module, exports) {
+    module.exports = require("k6");
+}, function(module, exports, __webpack_require__) {
     (function(global) {
         var check = function(it) {
             return it && it.Math == Math && it;
@@ -73,6 +75,10 @@
             return this;
         }() || Function("return this")();
     }).call(this, __webpack_require__(41));
+}, function(module, exports) {
+    module.exports = require("k6/http");
+}, function(module, exports) {
+    module.exports = require("k6/metrics");
 }, function(module, exports) {
     module.exports = function(argument) {
         return typeof argument == "function";
@@ -98,22 +104,20 @@
             return call.apply(fn, arguments);
         };
     };
-}, function(module, exports) {
-    module.exports = require("k6");
 }, function(module, exports, __webpack_require__) {
-    var isCallable = __webpack_require__(1);
+    var isCallable = __webpack_require__(4);
     module.exports = function(it) {
         return typeof it == "object" ? it !== null : isCallable(it);
     };
 }, function(module, exports, __webpack_require__) {
-    var uncurryThis = __webpack_require__(3);
+    var uncurryThis = __webpack_require__(6);
     var toObject = __webpack_require__(30);
     var hasOwnProperty = uncurryThis({}.hasOwnProperty);
     module.exports = Object.hasOwn || function hasOwn(it, key) {
         return hasOwnProperty(toObject(it), key);
     };
 }, function(module, exports, __webpack_require__) {
-    var fails = __webpack_require__(2);
+    var fails = __webpack_require__(5);
     module.exports = !fails(function() {
         return Object.defineProperty({}, 1, {
             get: function() {
@@ -122,9 +126,9 @@
         })[1] != 7;
     });
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(0);
+    var global = __webpack_require__(1);
     var shared = __webpack_require__(29);
-    var hasOwn = __webpack_require__(6);
+    var hasOwn = __webpack_require__(8);
     var uid = __webpack_require__(31);
     var NATIVE_SYMBOL = __webpack_require__(28);
     var USE_SYMBOL_AS_UID = __webpack_require__(27);
@@ -145,13 +149,9 @@
         }
         return WellKnownSymbolsStore[name];
     };
-}, function(module, exports) {
-    module.exports = require("k6/http");
-}, function(module, exports) {
-    module.exports = require("k6/metrics");
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(0);
-    var isCallable = __webpack_require__(1);
+    var global = __webpack_require__(1);
+    var isCallable = __webpack_require__(4);
     var aFunction = function(argument) {
         return isCallable(argument) ? argument : undefined;
     };
@@ -180,7 +180,7 @@
         return IndexedObject(requireObjectCoercible(it));
     };
 }, function(module, exports, __webpack_require__) {
-    var uncurryThis = __webpack_require__(3);
+    var uncurryThis = __webpack_require__(6);
     var toString = uncurryThis({}.toString);
     var stringSlice = uncurryThis("".slice);
     module.exports = function(it) {
@@ -194,7 +194,7 @@
         return isSymbol(key) ? key : key + "";
     };
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(0);
+    var global = __webpack_require__(1);
     var userAgent = __webpack_require__(46);
     var process = global.process;
     var Deno = global.Deno;
@@ -214,13 +214,13 @@
     }
     module.exports = version;
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(0);
+    var global = __webpack_require__(1);
     var setGlobal = __webpack_require__(19);
     var SHARED = "__core-js_shared__";
     var store = global[SHARED] || setGlobal(SHARED, {});
     module.exports = store;
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(0);
+    var global = __webpack_require__(1);
     var defineProperty = Object.defineProperty;
     module.exports = function(key, value) {
         try {
@@ -235,7 +235,7 @@
         return value;
     };
 }, function(module, exports, __webpack_require__) {
-    var DESCRIPTORS = __webpack_require__(7);
+    var DESCRIPTORS = __webpack_require__(9);
     var definePropertyModule = __webpack_require__(21);
     var createPropertyDescriptor = __webpack_require__(13);
     module.exports = DESCRIPTORS ? function(object, key, value) {
@@ -245,8 +245,8 @@
         return object;
     };
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(0);
-    var DESCRIPTORS = __webpack_require__(7);
+    var global = __webpack_require__(1);
+    var DESCRIPTORS = __webpack_require__(9);
     var IE8_DOM_DEFINE = __webpack_require__(32);
     var V8_PROTOTYPE_DEFINE_BUG = __webpack_require__(53);
     var anObject = __webpack_require__(33);
@@ -285,8 +285,8 @@
         return O;
     };
 }, function(module, exports, __webpack_require__) {
-    var uncurryThis = __webpack_require__(3);
-    var isCallable = __webpack_require__(1);
+    var uncurryThis = __webpack_require__(6);
+    var isCallable = __webpack_require__(4);
     var store = __webpack_require__(18);
     var functionToString = uncurryThis(Function.toString);
     if (!isCallable(store.inspectSource)) {
@@ -296,13 +296,13 @@
     }
     module.exports = store.inspectSource;
 }, function(module, exports, __webpack_require__) {
-    var DESCRIPTORS = __webpack_require__(7);
+    var DESCRIPTORS = __webpack_require__(9);
     var call = __webpack_require__(12);
     var propertyIsEnumerableModule = __webpack_require__(42);
     var createPropertyDescriptor = __webpack_require__(13);
     var toIndexedObject = __webpack_require__(14);
     var toPropertyKey = __webpack_require__(16);
-    var hasOwn = __webpack_require__(6);
+    var hasOwn = __webpack_require__(8);
     var IE8_DOM_DEFINE = __webpack_require__(32);
     var $getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
     exports.f = DESCRIPTORS ? $getOwnPropertyDescriptor : function getOwnPropertyDescriptor(O, P) {
@@ -314,22 +314,22 @@
         if (hasOwn(O, P)) return createPropertyDescriptor(!call(propertyIsEnumerableModule.f, O, P), O[P]);
     };
 }, function(module, exports, __webpack_require__) {
-    var fails = __webpack_require__(2);
+    var fails = __webpack_require__(5);
     module.exports = !fails(function() {
         var test = function() {}.bind();
         return typeof test != "function" || test.hasOwnProperty("prototype");
     });
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(0);
+    var global = __webpack_require__(1);
     var TypeError = global.TypeError;
     module.exports = function(it) {
         if (it == undefined) throw TypeError("Can't call method on " + it);
         return it;
     };
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(0);
+    var global = __webpack_require__(1);
     var getBuiltIn = __webpack_require__(11);
-    var isCallable = __webpack_require__(1);
+    var isCallable = __webpack_require__(4);
     var isPrototypeOf = __webpack_require__(45);
     var USE_SYMBOL_AS_UID = __webpack_require__(27);
     var Object = global.Object;
@@ -344,7 +344,7 @@
     module.exports = NATIVE_SYMBOL && !Symbol.sham && typeof Symbol.iterator == "symbol";
 }, function(module, exports, __webpack_require__) {
     var V8_VERSION = __webpack_require__(17);
-    var fails = __webpack_require__(2);
+    var fails = __webpack_require__(5);
     module.exports = !!Object.getOwnPropertySymbols && !fails(function() {
         var symbol = Symbol();
         return !String(symbol) || !(Object(symbol) instanceof Symbol) || !Symbol.sham && V8_VERSION && V8_VERSION < 41;
@@ -362,14 +362,14 @@
         source: "https://github.com/zloirock/core-js"
     });
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(0);
+    var global = __webpack_require__(1);
     var requireObjectCoercible = __webpack_require__(25);
     var Object = global.Object;
     module.exports = function(argument) {
         return Object(requireObjectCoercible(argument));
     };
 }, function(module, exports, __webpack_require__) {
-    var uncurryThis = __webpack_require__(3);
+    var uncurryThis = __webpack_require__(6);
     var id = 0;
     var postfix = Math.random();
     var toString = uncurryThis(1..toString);
@@ -377,8 +377,8 @@
         return "Symbol(" + (key === undefined ? "" : key) + ")_" + toString(++id + postfix, 36);
     };
 }, function(module, exports, __webpack_require__) {
-    var DESCRIPTORS = __webpack_require__(7);
-    var fails = __webpack_require__(2);
+    var DESCRIPTORS = __webpack_require__(9);
+    var fails = __webpack_require__(5);
     var createElement = __webpack_require__(52);
     module.exports = !DESCRIPTORS && !fails(function() {
         return Object.defineProperty(createElement("div"), "a", {
@@ -388,8 +388,8 @@
         }).a != 7;
     });
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(0);
-    var isObject = __webpack_require__(5);
+    var global = __webpack_require__(1);
+    var isObject = __webpack_require__(7);
     var String = global.String;
     var TypeError = global.TypeError;
     module.exports = function(argument) {
@@ -427,135 +427,308 @@
     __webpack_require__.d(__webpack_exports__, "dashboard", function() {
         return dashboard;
     });
-    __webpack_require__.d(__webpack_exports__, "kelompokPtn", function() {
-        return kelompokPtn;
+    __webpack_require__.d(__webpack_exports__, "pasKlikMulai", function() {
+        return pasKlikMulai;
+    });
+    __webpack_require__.d(__webpack_exports__, "setelahKlikMulai", function() {
+        return setelahKlikMulai;
     });
     var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(39);
     var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_0___default = __webpack_require__.n(core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_0__);
-    var k6_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(9);
+    var k6_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
     var k6_http__WEBPACK_IMPORTED_MODULE_1___default = __webpack_require__.n(k6_http__WEBPACK_IMPORTED_MODULE_1__);
-    var k6__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
+    var k6__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(0);
     var k6__WEBPACK_IMPORTED_MODULE_2___default = __webpack_require__.n(k6__WEBPACK_IMPORTED_MODULE_2__);
-    var k6_metrics__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(10);
+    var k6_metrics__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(3);
     var k6_metrics__WEBPACK_IMPORTED_MODULE_3___default = __webpack_require__.n(k6_metrics__WEBPACK_IMPORTED_MODULE_3__);
     var loginError = new k6_metrics__WEBPACK_IMPORTED_MODULE_3__["Rate"]("loginError");
     var captchaError = new k6_metrics__WEBPACK_IMPORTED_MODULE_3__["Rate"]("captchaError");
     var dashboardError = new k6_metrics__WEBPACK_IMPORTED_MODULE_3__["Rate"]("dashboardError");
+    var paketTryoutError = new k6_metrics__WEBPACK_IMPORTED_MODULE_3__["Rate"]("paketTryoutError");
+    var peringkatDashboardError = new k6_metrics__WEBPACK_IMPORTED_MODULE_3__["Rate"]("peringkatDashboardError");
+    var paymentError = new k6_metrics__WEBPACK_IMPORTED_MODULE_3__["Rate"]("paymentError");
+    var subpaketError = new k6_metrics__WEBPACK_IMPORTED_MODULE_3__["Rate"]("subpaketError");
+    var paketSoalError = new k6_metrics__WEBPACK_IMPORTED_MODULE_3__["Rate"]("paketSoalError");
+    var validasiJadwalError = new k6_metrics__WEBPACK_IMPORTED_MODULE_3__["Rate"]("validasiJadwalError");
+    var cekPilihanPtnError = new k6_metrics__WEBPACK_IMPORTED_MODULE_3__["Rate"]("cekPilihanPtnError");
     var kelompokPtnError = new k6_metrics__WEBPACK_IMPORTED_MODULE_3__["Rate"]("kelompokPtnError");
+    var ptnError = new k6_metrics__WEBPACK_IMPORTED_MODULE_3__["Rate"]("ptnError");
+    var ptn2Error = new k6_metrics__WEBPACK_IMPORTED_MODULE_3__["Rate"]("ptn2Error");
     var URL = "https://dashboard.utbk.edubrand.id/api/stress-test/";
     var options = {
         noConnectionReuse: true,
         noVUConnectionReuse: true,
-        discardResponseBodies: true,
         thresholds: {
             loginError: [ "rate < 0.2" ],
             captchaError: [ "rate < 0.2" ],
             dashboardError: [ "rate < 0.2" ],
-            kelompokPtnError: [ "rate < 0.2" ]
+            paketTryoutError: [ "rate < 0.2" ],
+            peringkatDashboardError: [ "rate < 0.2" ],
+            paymentError: [ "rate < 0.2" ],
+            subpaketError: [ "rate < 0.2" ],
+            paketSoalError: [ "rate < 0.2" ],
+            validasiJadwalError: [ "rate < 0.2" ],
+            cekPilihanPtnError: [ "rate < 0.2" ],
+            kelompokPtnError: [ "rate < 0.2" ],
+            ptnError: [ "rate < 0.2" ],
+            ptn2Error: [ "rate < 0.2" ]
         },
         scenarios: {
             loginScenario: {
                 executor: "ramping-vus",
-                startVUs: 500,
+                startVUs: 10,
                 stages: [ {
-                    duration: "5m",
-                    target: 1e3
+                    duration: "1m",
+                    target: 10
                 }, {
-                    duration: "15m",
-                    target: 1e3
+                    duration: "2m",
+                    target: 20
                 }, {
-                    duration: "5m",
-                    target: 500
+                    duration: "3m",
+                    target: 10
                 }, {
                     duration: "30s",
-                    target: 100
+                    target: 10
                 } ],
                 gracefulRampDown: "30s",
                 exec: "login"
             },
             dashboardScenario: {
                 executor: "ramping-vus",
-                startVUs: 500,
+                startVUs: 10,
+                startTime: "1m",
                 stages: [ {
-                    duration: "5m",
-                    target: 1e3
+                    duration: "1m",
+                    target: 10
                 }, {
-                    duration: "15m",
-                    target: 1e3
+                    duration: "2m",
+                    target: 20
                 }, {
-                    duration: "5m",
-                    target: 500
+                    duration: "3m",
+                    target: 10
                 }, {
                     duration: "30s",
-                    target: 100
+                    target: 10
                 } ],
                 gracefulRampDown: "30s",
-                exec: "login"
+                exec: "dashboard"
+            },
+            pasKlikMulaiScenario: {
+                executor: "ramping-vus",
+                startVUs: 10,
+                startTime: "2m",
+                stages: [ {
+                    duration: "1m",
+                    target: 10
+                }, {
+                    duration: "2m",
+                    target: 20
+                }, {
+                    duration: "3m",
+                    target: 10
+                }, {
+                    duration: "30s",
+                    target: 10
+                } ],
+                gracefulRampDown: "30s",
+                exec: "pasKlikMulai"
+            },
+            setelahKlikMulaiScenario: {
+                executor: "ramping-vus",
+                startVUs: 10,
+                startTime: "2m",
+                stages: [ {
+                    duration: "1m",
+                    target: 10
+                }, {
+                    duration: "2m",
+                    target: 20
+                }, {
+                    duration: "3m",
+                    target: 10
+                }, {
+                    duration: "30s",
+                    target: 10
+                } ],
+                gracefulRampDown: "30s",
+                exec: "setelahKlikMulai"
             }
         }
     };
     function login() {
         Object(k6__WEBPACK_IMPORTED_MODULE_2__["group"])("captcha", function() {
-            var captchaRequest = k6_http__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(URL, "captcha"));
-            var captchaResult = Object(k6__WEBPACK_IMPORTED_MODULE_2__["check"])(captchaRequest, {
+            var request = k6_http__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(URL, "captcha"));
+            var result = Object(k6__WEBPACK_IMPORTED_MODULE_2__["check"])(request, {
                 "is status 200": function isStatus200(r) {
                     return r.status === 200;
                 }
             });
-            console.log("Group Captcha | ITER ".concat(__ITER, " | VU ").concat(__VU, " | status ").concat(captchaRequest.status));
-            captchaError.add(!captchaResult);
+            console.log("LOGIN|C|I".concat(__ITER, "|VU").concat(__VU, "|").concat(request.status, "|CTime ").concat(request.headers["X-Compute-Time"], "|STime ").concat(request.headers["X-Syscall-Time"]));
+            captchaError.add(!result);
         });
         Object(k6__WEBPACK_IMPORTED_MODULE_2__["group"])("login", function() {
-            var loginBody = {
+            var body = {
                 tahun_kelulusan: "2022"
             };
-            var loginRequest = k6_http__WEBPACK_IMPORTED_MODULE_1___default.a.post("".concat(URL, "login"), loginBody);
-            var loginResult = Object(k6__WEBPACK_IMPORTED_MODULE_2__["check"])(loginRequest, {
+            var request = k6_http__WEBPACK_IMPORTED_MODULE_1___default.a.post("".concat(URL, "login"), body);
+            var result = Object(k6__WEBPACK_IMPORTED_MODULE_2__["check"])(request, {
                 "is status 200": function isStatus200(r) {
                     return r.status === 200;
                 }
             });
-            console.log("Group Login | ITER ".concat(__ITER, " | VU ").concat(__VU, " | status ").concat(loginRequest.status));
-            loginError.add(!loginResult);
+            console.log("LOGIN|L|I".concat(__ITER, "|VU").concat(__VU, "|").concat(request.status, "|CTime ").concat(request.headers["X-Compute-Time"], "|STime ").concat(request.headers["X-Syscall-Time"]));
+            loginError.add(!result);
         });
     }
     function dashboard() {
         Object(k6__WEBPACK_IMPORTED_MODULE_2__["group"])("dashboard", function() {
-            var dashboardRequest = k6_http__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(URL, "294506/dashboard"));
-            var dashboardResult = Object(k6__WEBPACK_IMPORTED_MODULE_2__["check"])(dashboardRequest, {
+            var request = k6_http__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(URL, "294506/dashboard"));
+            var result = Object(k6__WEBPACK_IMPORTED_MODULE_2__["check"])(request, {
                 "is status 200": function isStatus200(r) {
                     return r.status === 200;
                 }
             });
-            console.log("Group Dashboard | ITER ".concat(__ITER, " | VU ").concat(__VU, " | status ").concat(dashboardRequest.status));
-            dashboardError.add(!dashboardResult);
+            console.log("DASHBOARD|D|I".concat(__ITER, "|VU").concat(__VU, "|").concat(request.status, "|CTime ").concat(request.headers["X-Compute-Time"], "|STime ").concat(request.headers["X-Syscall-Time"]));
+            dashboardError.add(!result);
+        });
+        Object(k6__WEBPACK_IMPORTED_MODULE_2__["group"])("paketTryout", function() {
+            var request = k6_http__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(URL, "294506/paketTryout"));
+            var result = Object(k6__WEBPACK_IMPORTED_MODULE_2__["check"])(request, {
+                "is status 200": function isStatus200(r) {
+                    return r.status === 200;
+                }
+            });
+            console.log("DASHBOARD|PT|I".concat(__ITER, "|VU").concat(__VU, "|").concat(request.status, "|CTime ").concat(request.headers["X-Compute-Time"], "|STime ").concat(request.headers["X-Syscall-Time"]));
+            paketTryoutError.add(!result);
+        });
+        Object(k6__WEBPACK_IMPORTED_MODULE_2__["group"])("peringkatDashboard", function() {
+            var request = k6_http__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(URL, "peringkatDashboard"));
+            var result = Object(k6__WEBPACK_IMPORTED_MODULE_2__["check"])(request, {
+                "is status 200": function isStatus200(r) {
+                    return r.status === 200;
+                }
+            });
+            console.log("DASHBOARD|PD|ITER ".concat(__ITER, "|VU ").concat(__VU, "|").concat(request.status, "|CTime ").concat(request.headers["X-Compute-Time"], "|STime ").concat(request.headers["X-Syscall-Time"]));
+            peringkatDashboardError.add(!result);
+        });
+        Object(k6__WEBPACK_IMPORTED_MODULE_2__["group"])("payment", function() {
+            var body = {
+                peserta_id: "294506"
+            };
+            var request = k6_http__WEBPACK_IMPORTED_MODULE_1___default.a.post("".concat(URL, "login"), body);
+            var result = Object(k6__WEBPACK_IMPORTED_MODULE_2__["check"])(request, {
+                "is status 200": function isStatus200(r) {
+                    return r.status === 200;
+                }
+            });
+            console.log("DASHBOARD|PY|I".concat(__ITER, "|VU").concat(__VU, "|").concat(request.status, "|CTime ").concat(request.headers["X-Compute-Time"], "|STime ").concat(request.headers["X-Syscall-Time"]));
+            paymentError.add(!result);
         });
     }
-    function kelompokPtn() {
-        Object(k6__WEBPACK_IMPORTED_MODULE_2__["group"])("kelompokPtn", function() {
-            var kelompokRequest = k6_http__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(URL, "kelompok/ptn?kelompok=saintek"));
-            var kelompokResult = Object(k6__WEBPACK_IMPORTED_MODULE_2__["check"])(kelompokRequest, {
+    function pasKlikMulai() {
+        Object(k6__WEBPACK_IMPORTED_MODULE_2__["group"])("subpaket", function() {
+            var request = k6_http__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(URL, "32/subpaket"));
+            var result = Object(k6__WEBPACK_IMPORTED_MODULE_2__["check"])(request, {
                 "is status 200": function isStatus200(r) {
                     return r.status === 200;
                 }
             });
-            console.log("TEST 2 | ITER ".concat(__ITER, " | VU ").concat(__VU, " | status ").concat(kelompokRequest.status));
-            kelompokPtnError.add(!kelompokResult);
+            console.log("PKM|SP|I".concat(__ITER, "|VU").concat(__VU, "|").concat(request.status, "|CTime ").concat(request.headers["X-Compute-Time"], "|STime ").concat(request.headers["X-Syscall-Time"]));
+            subpaketError.add(!result);
+        });
+        Object(k6__WEBPACK_IMPORTED_MODULE_2__["group"])("paketSoal", function() {
+            var body = {
+                ids: [ 83 ]
+            };
+            var params = {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            };
+            var request = k6_http__WEBPACK_IMPORTED_MODULE_1___default.a.post("".concat(URL, "paketSoal"), JSON.stringify(body), params);
+            var result = Object(k6__WEBPACK_IMPORTED_MODULE_2__["check"])(request, {
+                "is status 200": function isStatus200(r) {
+                    return r.status === 200;
+                }
+            });
+            console.log("PKM|PS|I".concat(__ITER, "|VU").concat(__VU, "|").concat(request.status, "|CTime ").concat(request.headers["X-Compute-Time"], "|STime ").concat(request.headers["X-Syscall-Time"]));
+            paketSoalError.add(!result);
+        });
+        Object(k6__WEBPACK_IMPORTED_MODULE_2__["group"])("validasi", function() {
+            var request = k6_http__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(URL, "validasi/294506/84"));
+            var result = Object(k6__WEBPACK_IMPORTED_MODULE_2__["check"])(request, {
+                "is status 200": function isStatus200(r) {
+                    return r.status === 200;
+                }
+            });
+            console.log("PKM|V|I".concat(__ITER, "|VU").concat(__VU, "|").concat(request.status, "|CTime ").concat(request.headers["X-Compute-Time"], "|STime ").concat(request.headers["X-Syscall-Time"]));
+            validasiJadwalError.add(!result);
+        });
+    }
+    function setelahKlikMulai() {
+        Object(k6__WEBPACK_IMPORTED_MODULE_2__["group"])("kelompokPtn", function() {
+            var request = k6_http__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(URL, "kelompokPtn?kelompok=saintek"));
+            var result = Object(k6__WEBPACK_IMPORTED_MODULE_2__["check"])(request, {
+                "is status 200": function isStatus200(r) {
+                    return r.status === 200;
+                }
+            });
+            console.log("SKM|KP|I".concat(__ITER, "|VU").concat(__VU, "|").concat(request.status, "|CTime ").concat(request.headers["X-Compute-Time"], "|STime ").concat(request.headers["X-Syscall-Time"]));
+            kelompokPtnError.add(!result);
+        });
+        Object(k6__WEBPACK_IMPORTED_MODULE_2__["group"])("cekPilihanPtn", function() {
+            var body = {
+                id_peserta: 294506,
+                id_paket_soal: 75
+            };
+            var params = {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            };
+            var request = k6_http__WEBPACK_IMPORTED_MODULE_1___default.a.post("".concat(URL, "cekPilihanPtn"), JSON.stringify(body), params);
+            var result = Object(k6__WEBPACK_IMPORTED_MODULE_2__["check"])(request, {
+                "is status 200": function isStatus200(r) {
+                    return r.status === 200;
+                }
+            });
+            console.log("SKM|CPP|I".concat(__ITER, "|VU").concat(__VU, "|").concat(request.status, "|CTime ").concat(request.headers["X-Compute-Time"], "|STime ").concat(request.headers["X-Syscall-Time"]));
+            cekPilihanPtnError.add(!result);
+        });
+        Object(k6__WEBPACK_IMPORTED_MODULE_2__["group"])("ptn", function() {
+            var request = k6_http__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(URL, "ptn?kelompok=SAINTEK&nama=UNIVERSITAS%20SYIAH%20KUALA"));
+            var result = Object(k6__WEBPACK_IMPORTED_MODULE_2__["check"])(request, {
+                "is status 200": function isStatus200(r) {
+                    return r.status === 200;
+                }
+            });
+            console.log("SKM|PTN|I".concat(__ITER, "|VU").concat(__VU, "|").concat(request.status, "|CTime ").concat(request.headers["X-Compute-Time"], "|STime ").concat(request.headers["X-Syscall-Time"]));
+            ptnError.add(!result);
+        });
+        Object(k6__WEBPACK_IMPORTED_MODULE_2__["group"])("ptn2", function() {
+            var request = k6_http__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(URL, "ptn2?kelompok=SAINTEK&nama=UNIVERSITAS%20SYIAH%20KUALA"));
+            var result = Object(k6__WEBPACK_IMPORTED_MODULE_2__["check"])(request, {
+                "is status 200": function isStatus200(r) {
+                    return r.status === 200;
+                }
+            });
+            console.log("SKM|PTN2|I".concat(__ITER, "|VU").concat(__VU, "|").concat(request.status, "|CTime ").concat(request.headers["X-Compute-Time"], "|STime ").concat(request.headers["X-Syscall-Time"]));
+            ptn2Error.add(!result);
         });
     }
 }, function(module, exports, __webpack_require__) {
     "use strict";
     var $ = __webpack_require__(40);
-    var global = __webpack_require__(0);
-    var fails = __webpack_require__(2);
+    var global = __webpack_require__(1);
+    var fails = __webpack_require__(5);
     var isArray = __webpack_require__(37);
-    var isObject = __webpack_require__(5);
+    var isObject = __webpack_require__(7);
     var toObject = __webpack_require__(30);
     var lengthOfArrayLike = __webpack_require__(36);
     var createProperty = __webpack_require__(69);
     var arraySpeciesCreate = __webpack_require__(70);
     var arrayMethodHasSpeciesSupport = __webpack_require__(75);
-    var wellKnownSymbol = __webpack_require__(8);
+    var wellKnownSymbol = __webpack_require__(10);
     var V8_VERSION = __webpack_require__(17);
     var IS_CONCAT_SPREADABLE = wellKnownSymbol("isConcatSpreadable");
     var MAX_SAFE_INTEGER = 9007199254740991;
@@ -599,7 +772,7 @@
         }
     });
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(0);
+    var global = __webpack_require__(1);
     var getOwnPropertyDescriptor = __webpack_require__(23).f;
     var createNonEnumerableProperty = __webpack_require__(20);
     var redefine = __webpack_require__(54);
@@ -658,9 +831,9 @@
         return !!descriptor && descriptor.enumerable;
     } : $propertyIsEnumerable;
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(0);
-    var uncurryThis = __webpack_require__(3);
-    var fails = __webpack_require__(2);
+    var global = __webpack_require__(1);
+    var uncurryThis = __webpack_require__(6);
+    var fails = __webpack_require__(5);
     var classof = __webpack_require__(15);
     var Object = global.Object;
     var split = uncurryThis("".split);
@@ -670,13 +843,13 @@
         return classof(it) == "String" ? split(it, "") : Object(it);
     } : Object;
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(0);
+    var global = __webpack_require__(1);
     var call = __webpack_require__(12);
-    var isObject = __webpack_require__(5);
+    var isObject = __webpack_require__(7);
     var isSymbol = __webpack_require__(26);
     var getMethod = __webpack_require__(47);
     var ordinaryToPrimitive = __webpack_require__(50);
-    var wellKnownSymbol = __webpack_require__(8);
+    var wellKnownSymbol = __webpack_require__(10);
     var TypeError = global.TypeError;
     var TO_PRIMITIVE = wellKnownSymbol("toPrimitive");
     module.exports = function(input, pref) {
@@ -693,7 +866,7 @@
         return ordinaryToPrimitive(input, pref);
     };
 }, function(module, exports, __webpack_require__) {
-    var uncurryThis = __webpack_require__(3);
+    var uncurryThis = __webpack_require__(6);
     module.exports = uncurryThis({}.isPrototypeOf);
 }, function(module, exports, __webpack_require__) {
     var getBuiltIn = __webpack_require__(11);
@@ -705,8 +878,8 @@
         return func == null ? undefined : aCallable(func);
     };
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(0);
-    var isCallable = __webpack_require__(1);
+    var global = __webpack_require__(1);
+    var isCallable = __webpack_require__(4);
     var tryToString = __webpack_require__(49);
     var TypeError = global.TypeError;
     module.exports = function(argument) {
@@ -714,7 +887,7 @@
         throw TypeError(tryToString(argument) + " is not a function");
     };
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(0);
+    var global = __webpack_require__(1);
     var String = global.String;
     module.exports = function(argument) {
         try {
@@ -724,10 +897,10 @@
         }
     };
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(0);
+    var global = __webpack_require__(1);
     var call = __webpack_require__(12);
-    var isCallable = __webpack_require__(1);
-    var isObject = __webpack_require__(5);
+    var isCallable = __webpack_require__(4);
+    var isObject = __webpack_require__(7);
     var TypeError = global.TypeError;
     module.exports = function(input, pref) {
         var fn, val;
@@ -739,16 +912,16 @@
 }, function(module, exports) {
     module.exports = false;
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(0);
-    var isObject = __webpack_require__(5);
+    var global = __webpack_require__(1);
+    var isObject = __webpack_require__(7);
     var document = global.document;
     var EXISTS = isObject(document) && isObject(document.createElement);
     module.exports = function(it) {
         return EXISTS ? document.createElement(it) : {};
     };
 }, function(module, exports, __webpack_require__) {
-    var DESCRIPTORS = __webpack_require__(7);
-    var fails = __webpack_require__(2);
+    var DESCRIPTORS = __webpack_require__(9);
+    var fails = __webpack_require__(5);
     module.exports = DESCRIPTORS && fails(function() {
         return Object.defineProperty(function() {}, "prototype", {
             value: 42,
@@ -756,9 +929,9 @@
         }).prototype != 42;
     });
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(0);
-    var isCallable = __webpack_require__(1);
-    var hasOwn = __webpack_require__(6);
+    var global = __webpack_require__(1);
+    var isCallable = __webpack_require__(4);
+    var hasOwn = __webpack_require__(8);
     var createNonEnumerableProperty = __webpack_require__(20);
     var setGlobal = __webpack_require__(19);
     var inspectSource = __webpack_require__(22);
@@ -799,11 +972,11 @@
     });
 }, function(module, exports, __webpack_require__) {
     var NATIVE_WEAK_MAP = __webpack_require__(56);
-    var global = __webpack_require__(0);
-    var uncurryThis = __webpack_require__(3);
-    var isObject = __webpack_require__(5);
+    var global = __webpack_require__(1);
+    var uncurryThis = __webpack_require__(6);
+    var isObject = __webpack_require__(7);
     var createNonEnumerableProperty = __webpack_require__(20);
-    var hasOwn = __webpack_require__(6);
+    var hasOwn = __webpack_require__(8);
     var shared = __webpack_require__(18);
     var sharedKey = __webpack_require__(57);
     var hiddenKeys = __webpack_require__(34);
@@ -864,8 +1037,8 @@
         getterFor: getterFor
     };
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(0);
-    var isCallable = __webpack_require__(1);
+    var global = __webpack_require__(1);
+    var isCallable = __webpack_require__(4);
     var inspectSource = __webpack_require__(22);
     var WeakMap = global.WeakMap;
     module.exports = isCallable(WeakMap) && /native code/.test(inspectSource(WeakMap));
@@ -877,8 +1050,8 @@
         return keys[key] || (keys[key] = uid(key));
     };
 }, function(module, exports, __webpack_require__) {
-    var DESCRIPTORS = __webpack_require__(7);
-    var hasOwn = __webpack_require__(6);
+    var DESCRIPTORS = __webpack_require__(9);
+    var hasOwn = __webpack_require__(8);
     var FunctionPrototype = Function.prototype;
     var getDescriptor = DESCRIPTORS && Object.getOwnPropertyDescriptor;
     var EXISTS = hasOwn(FunctionPrototype, "name");
@@ -890,7 +1063,7 @@
         CONFIGURABLE: CONFIGURABLE
     };
 }, function(module, exports, __webpack_require__) {
-    var hasOwn = __webpack_require__(6);
+    var hasOwn = __webpack_require__(8);
     var ownKeys = __webpack_require__(60);
     var getOwnPropertyDescriptorModule = __webpack_require__(23);
     var definePropertyModule = __webpack_require__(21);
@@ -907,7 +1080,7 @@
     };
 }, function(module, exports, __webpack_require__) {
     var getBuiltIn = __webpack_require__(11);
-    var uncurryThis = __webpack_require__(3);
+    var uncurryThis = __webpack_require__(6);
     var getOwnPropertyNamesModule = __webpack_require__(61);
     var getOwnPropertySymbolsModule = __webpack_require__(67);
     var anObject = __webpack_require__(33);
@@ -925,8 +1098,8 @@
         return internalObjectKeys(O, hiddenKeys);
     };
 }, function(module, exports, __webpack_require__) {
-    var uncurryThis = __webpack_require__(3);
-    var hasOwn = __webpack_require__(6);
+    var uncurryThis = __webpack_require__(6);
+    var hasOwn = __webpack_require__(8);
     var toIndexedObject = __webpack_require__(14);
     var indexOf = __webpack_require__(63).indexOf;
     var hiddenKeys = __webpack_require__(34);
@@ -984,8 +1157,8 @@
 }, function(module, exports) {
     exports.f = Object.getOwnPropertySymbols;
 }, function(module, exports, __webpack_require__) {
-    var fails = __webpack_require__(2);
-    var isCallable = __webpack_require__(1);
+    var fails = __webpack_require__(5);
+    var isCallable = __webpack_require__(4);
     var replacement = /#|\.prototype\./;
     var isForced = function(feature, detection) {
         var value = data[normalize(feature)];
@@ -1013,11 +1186,11 @@
         return new (arraySpeciesConstructor(originalArray))(length === 0 ? 0 : length);
     };
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(0);
+    var global = __webpack_require__(1);
     var isArray = __webpack_require__(37);
     var isConstructor = __webpack_require__(72);
-    var isObject = __webpack_require__(5);
-    var wellKnownSymbol = __webpack_require__(8);
+    var isObject = __webpack_require__(7);
+    var wellKnownSymbol = __webpack_require__(10);
     var SPECIES = wellKnownSymbol("species");
     var Array = global.Array;
     module.exports = function(originalArray) {
@@ -1032,9 +1205,9 @@
         return C === undefined ? Array : C;
     };
 }, function(module, exports, __webpack_require__) {
-    var uncurryThis = __webpack_require__(3);
-    var fails = __webpack_require__(2);
-    var isCallable = __webpack_require__(1);
+    var uncurryThis = __webpack_require__(6);
+    var fails = __webpack_require__(5);
+    var isCallable = __webpack_require__(4);
     var classof = __webpack_require__(73);
     var getBuiltIn = __webpack_require__(11);
     var inspectSource = __webpack_require__(22);
@@ -1075,11 +1248,11 @@
         }) || called;
     }) ? isConstructorLegacy : isConstructorModern;
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(0);
+    var global = __webpack_require__(1);
     var TO_STRING_TAG_SUPPORT = __webpack_require__(74);
-    var isCallable = __webpack_require__(1);
+    var isCallable = __webpack_require__(4);
     var classofRaw = __webpack_require__(15);
-    var wellKnownSymbol = __webpack_require__(8);
+    var wellKnownSymbol = __webpack_require__(10);
     var TO_STRING_TAG = wellKnownSymbol("toStringTag");
     var Object = global.Object;
     var CORRECT_ARGUMENTS = classofRaw(function() {
@@ -1095,14 +1268,14 @@
         return it === undefined ? "Undefined" : it === null ? "Null" : typeof (tag = tryGet(O = Object(it), TO_STRING_TAG)) == "string" ? tag : CORRECT_ARGUMENTS ? classofRaw(O) : (result = classofRaw(O)) == "Object" && isCallable(O.callee) ? "Arguments" : result;
     };
 }, function(module, exports, __webpack_require__) {
-    var wellKnownSymbol = __webpack_require__(8);
+    var wellKnownSymbol = __webpack_require__(10);
     var TO_STRING_TAG = wellKnownSymbol("toStringTag");
     var test = {};
     test[TO_STRING_TAG] = "z";
     module.exports = String(test) === "[object z]";
 }, function(module, exports, __webpack_require__) {
-    var fails = __webpack_require__(2);
-    var wellKnownSymbol = __webpack_require__(8);
+    var fails = __webpack_require__(5);
+    var wellKnownSymbol = __webpack_require__(10);
     var V8_VERSION = __webpack_require__(17);
     var SPECIES = wellKnownSymbol("species");
     module.exports = function(METHOD_NAME) {

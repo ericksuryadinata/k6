@@ -478,7 +478,7 @@
             ptn2Error: [ "rate < 0.2" ]
         },
         scenarios: {
-            skenarioLengkap: {
+            loginScenario: {
                 executor: "ramping-vus",
                 startVUs: 1e3,
                 stages: [ {
@@ -495,7 +495,67 @@
                     target: 10
                 } ],
                 gracefulRampDown: "30s",
-                exec: "skenarioLengkap"
+                exec: "login"
+            },
+            dashboardScenario: {
+                executor: "ramping-vus",
+                startVUs: 1e3,
+                startTime: "1m",
+                stages: [ {
+                    duration: "1m",
+                    target: 1e3
+                }, {
+                    duration: "2m",
+                    target: 2e3
+                }, {
+                    duration: "3m",
+                    target: 500
+                }, {
+                    duration: "30s",
+                    target: 10
+                } ],
+                gracefulRampDown: "30s",
+                exec: "dashboard"
+            },
+            pasKlikMulaiScenario: {
+                executor: "ramping-vus",
+                startVUs: 1e3,
+                startTime: "2m",
+                stages: [ {
+                    duration: "1m",
+                    target: 1e3
+                }, {
+                    duration: "2m",
+                    target: 2e3
+                }, {
+                    duration: "3m",
+                    target: 500
+                }, {
+                    duration: "30s",
+                    target: 10
+                } ],
+                gracefulRampDown: "30s",
+                exec: "pasKlikMulai"
+            },
+            setelahKlikMulaiScenario: {
+                executor: "ramping-vus",
+                startVUs: 1e3,
+                startTime: "2m",
+                stages: [ {
+                    duration: "1m",
+                    target: 1e3
+                }, {
+                    duration: "2m",
+                    target: 2e3
+                }, {
+                    duration: "3m",
+                    target: 500
+                }, {
+                    duration: "30s",
+                    target: 10
+                } ],
+                gracefulRampDown: "30s",
+                exec: "setelahKlikMulai"
             }
         }
     };

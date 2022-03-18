@@ -240,6 +240,7 @@ export function login(){
         })
         console.log(`LOGIN|C|I${__ITER}|VU${__VU}|${request.status}|CTime ${request.headers['X-Compute-Time']}|STime ${request.headers['X-Syscall-Time']}`)
         captchaError.add(!result);
+        sleep(1)
     })
     
     group('login', function() {
@@ -252,6 +253,7 @@ export function login(){
         })
         console.log(`LOGIN|L|I${__ITER}|VU${__VU}|${request.status}|CTime ${request.headers['X-Compute-Time']}|STime ${request.headers['X-Syscall-Time']}`)
         loginError.add(!result);
+        sleep(1)
     })
 }
 
@@ -263,6 +265,7 @@ export function dashboard(){
         })
         console.log(`DASHBOARD|D|I${__ITER}|VU${__VU}|${request.status}|CTime ${request.headers['X-Compute-Time']}|STime ${request.headers['X-Syscall-Time']}`)
         dashboardError.add(!result);
+        sleep(1)
     })
 
     group('paketTryout', function(){
@@ -272,6 +275,7 @@ export function dashboard(){
         })
         console.log(`DASHBOARD|PT|I${__ITER}|VU${__VU}|${request.status}|CTime ${request.headers['X-Compute-Time']}|STime ${request.headers['X-Syscall-Time']}`)
         paketTryoutError.add(!result);
+        sleep(1)
     })
 
     group('peringkatDashboard', function(){
@@ -281,6 +285,7 @@ export function dashboard(){
         })
         console.log(`DASHBOARD|PD|ITER ${__ITER}|VU ${__VU}|${request.status}|CTime ${request.headers['X-Compute-Time']}|STime ${request.headers['X-Syscall-Time']}`)
         peringkatDashboardError.add(!result);
+        sleep(1)
     })
 
     
@@ -294,6 +299,7 @@ export function dashboard(){
         })
         console.log(`DASHBOARD|PY|I${__ITER}|VU${__VU}|${request.status}|CTime ${request.headers['X-Compute-Time']}|STime ${request.headers['X-Syscall-Time']}`)
         paymentError.add(!result);
+        sleep(1)
     })
 }
 
@@ -306,6 +312,7 @@ export function pasKlikMulai(){
         })
         console.log(`PKM|SP|I${__ITER}|VU${__VU}|${request.status}|CTime ${request.headers['X-Compute-Time']}|STime ${request.headers['X-Syscall-Time']}`)
         subpaketError.add(!result);
+        sleep(1)
     })
 
     group('paketSoal', function() {
@@ -323,6 +330,7 @@ export function pasKlikMulai(){
         })
         console.log(`PKM|PS|I${__ITER}|VU${__VU}|${request.status}|CTime ${request.headers['X-Compute-Time']}|STime ${request.headers['X-Syscall-Time']}`)
         paketSoalError.add(!result);
+        sleep(1)
     })
 
     group('validasi', function(){
@@ -332,6 +340,7 @@ export function pasKlikMulai(){
         })
         console.log(`PKM|V|I${__ITER}|VU${__VU}|${request.status}|CTime ${request.headers['X-Compute-Time']}|STime ${request.headers['X-Syscall-Time']}`)
         validasiJadwalError.add(!result);
+        sleep(1)
     })
     
 }
@@ -345,6 +354,7 @@ export function setelahKlikMulai(){
         })
         console.log(`SKM|KP|I${__ITER}|VU${__VU}|${request.status}|CTime ${request.headers['X-Compute-Time']}|STime ${request.headers['X-Syscall-Time']}`)
         kelompokPtnError.add(!result);
+        sleep(1)
     })
 
     group('cekPilihanPtn', function() {
@@ -364,6 +374,7 @@ export function setelahKlikMulai(){
         })
         console.log(`SKM|CPP|I${__ITER}|VU${__VU}|${request.status}|CTime ${request.headers['X-Compute-Time']}|STime ${request.headers['X-Syscall-Time']}`)
         cekPilihanPtnError.add(!result);
+        sleep(1)
     })
 
     group('ptn', function() {
@@ -373,6 +384,7 @@ export function setelahKlikMulai(){
         })
         console.log(`SKM|PTN|I${__ITER}|VU${__VU}|${request.status}|CTime ${request.headers['X-Compute-Time']}|STime ${request.headers['X-Syscall-Time']}`)
         ptnError.add(!result);
+        sleep(1)
     })
 
     group('ptn2', function() {
@@ -382,6 +394,7 @@ export function setelahKlikMulai(){
         })
         console.log(`SKM|PTN2|I${__ITER}|VU${__VU}|${request.status}|CTime ${request.headers['X-Compute-Time']}|STime ${request.headers['X-Syscall-Time']}`)
         ptn2Error.add(!result);
+        sleep(1)
     })
 
 }

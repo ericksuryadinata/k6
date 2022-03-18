@@ -495,7 +495,7 @@
                     target: 10
                 } ],
                 gracefulRampDown: "30s",
-                exec: "login"
+                exec: "skenarioLengkap"
             }
         }
     };

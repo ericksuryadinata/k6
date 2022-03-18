@@ -66,6 +66,8 @@
     return __webpack_require__(__webpack_require__.s = 38);
 }([ function(module, exports) {
     module.exports = require("k6");
+}, function(module, exports) {
+    module.exports = require("k6/http");
 }, function(module, exports, __webpack_require__) {
     (function(global) {
         var check = function(it) {
@@ -75,8 +77,6 @@
             return this;
         }() || Function("return this")();
     }).call(this, __webpack_require__(41));
-}, function(module, exports) {
-    module.exports = require("k6/http");
 }, function(module, exports) {
     module.exports = require("k6/metrics");
 }, function(module, exports) {
@@ -126,7 +126,7 @@
         })[1] != 7;
     });
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(1);
+    var global = __webpack_require__(2);
     var shared = __webpack_require__(29);
     var hasOwn = __webpack_require__(8);
     var uid = __webpack_require__(31);
@@ -150,7 +150,7 @@
         return WellKnownSymbolsStore[name];
     };
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(1);
+    var global = __webpack_require__(2);
     var isCallable = __webpack_require__(4);
     var aFunction = function(argument) {
         return isCallable(argument) ? argument : undefined;
@@ -194,7 +194,7 @@
         return isSymbol(key) ? key : key + "";
     };
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(1);
+    var global = __webpack_require__(2);
     var userAgent = __webpack_require__(46);
     var process = global.process;
     var Deno = global.Deno;
@@ -214,13 +214,13 @@
     }
     module.exports = version;
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(1);
+    var global = __webpack_require__(2);
     var setGlobal = __webpack_require__(19);
     var SHARED = "__core-js_shared__";
     var store = global[SHARED] || setGlobal(SHARED, {});
     module.exports = store;
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(1);
+    var global = __webpack_require__(2);
     var defineProperty = Object.defineProperty;
     module.exports = function(key, value) {
         try {
@@ -245,7 +245,7 @@
         return object;
     };
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(1);
+    var global = __webpack_require__(2);
     var DESCRIPTORS = __webpack_require__(9);
     var IE8_DOM_DEFINE = __webpack_require__(32);
     var V8_PROTOTYPE_DEFINE_BUG = __webpack_require__(53);
@@ -320,14 +320,14 @@
         return typeof test != "function" || test.hasOwnProperty("prototype");
     });
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(1);
+    var global = __webpack_require__(2);
     var TypeError = global.TypeError;
     module.exports = function(it) {
         if (it == undefined) throw TypeError("Can't call method on " + it);
         return it;
     };
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(1);
+    var global = __webpack_require__(2);
     var getBuiltIn = __webpack_require__(11);
     var isCallable = __webpack_require__(4);
     var isPrototypeOf = __webpack_require__(45);
@@ -362,7 +362,7 @@
         source: "https://github.com/zloirock/core-js"
     });
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(1);
+    var global = __webpack_require__(2);
     var requireObjectCoercible = __webpack_require__(25);
     var Object = global.Object;
     module.exports = function(argument) {
@@ -388,7 +388,7 @@
         }).a != 7;
     });
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(1);
+    var global = __webpack_require__(2);
     var isObject = __webpack_require__(7);
     var String = global.String;
     var TypeError = global.TypeError;
@@ -421,6 +421,9 @@
     __webpack_require__.d(__webpack_exports__, "options", function() {
         return options;
     });
+    __webpack_require__.d(__webpack_exports__, "skenarioLengkap", function() {
+        return skenarioLengkap;
+    });
     __webpack_require__.d(__webpack_exports__, "login", function() {
         return login;
     });
@@ -435,7 +438,7 @@
     });
     var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(39);
     var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_0___default = __webpack_require__.n(core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_0__);
-    var k6_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
+    var k6_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
     var k6_http__WEBPACK_IMPORTED_MODULE_1___default = __webpack_require__.n(k6_http__WEBPACK_IMPORTED_MODULE_1__);
     var k6__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(0);
     var k6__WEBPACK_IMPORTED_MODULE_2___default = __webpack_require__.n(k6__WEBPACK_IMPORTED_MODULE_2__);
@@ -458,6 +461,7 @@
     var options = {
         noConnectionReuse: true,
         noVUConnectionReuse: true,
+        discardResponseBodies: true,
         thresholds: {
             loginError: [ "rate < 0.2" ],
             captchaError: [ "rate < 0.2" ],
@@ -474,87 +478,164 @@
             ptn2Error: [ "rate < 0.2" ]
         },
         scenarios: {
-            loginScenario: {
+            skenarioLengkap: {
                 executor: "ramping-vus",
-                startVUs: 10,
+                startVUs: 1e3,
                 stages: [ {
                     duration: "1m",
-                    target: 10
+                    target: 1e3
                 }, {
                     duration: "2m",
-                    target: 20
+                    target: 2e3
                 }, {
                     duration: "3m",
-                    target: 10
+                    target: 500
                 }, {
                     duration: "30s",
                     target: 10
                 } ],
                 gracefulRampDown: "30s",
                 exec: "login"
-            },
-            dashboardScenario: {
-                executor: "ramping-vus",
-                startVUs: 10,
-                startTime: "1m",
-                stages: [ {
-                    duration: "1m",
-                    target: 10
-                }, {
-                    duration: "2m",
-                    target: 20
-                }, {
-                    duration: "3m",
-                    target: 10
-                }, {
-                    duration: "30s",
-                    target: 10
-                } ],
-                gracefulRampDown: "30s",
-                exec: "dashboard"
-            },
-            pasKlikMulaiScenario: {
-                executor: "ramping-vus",
-                startVUs: 10,
-                startTime: "2m",
-                stages: [ {
-                    duration: "1m",
-                    target: 10
-                }, {
-                    duration: "2m",
-                    target: 20
-                }, {
-                    duration: "3m",
-                    target: 10
-                }, {
-                    duration: "30s",
-                    target: 10
-                } ],
-                gracefulRampDown: "30s",
-                exec: "pasKlikMulai"
-            },
-            setelahKlikMulaiScenario: {
-                executor: "ramping-vus",
-                startVUs: 10,
-                startTime: "2m",
-                stages: [ {
-                    duration: "1m",
-                    target: 10
-                }, {
-                    duration: "2m",
-                    target: 20
-                }, {
-                    duration: "3m",
-                    target: 10
-                }, {
-                    duration: "30s",
-                    target: 10
-                } ],
-                gracefulRampDown: "30s",
-                exec: "setelahKlikMulai"
             }
         }
     };
+    function skenarioLengkap() {
+        Object(k6__WEBPACK_IMPORTED_MODULE_2__["group"])("login", function() {
+            var request = k6_http__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(URL, "captcha"));
+            var result = Object(k6__WEBPACK_IMPORTED_MODULE_2__["check"])(request, {
+                "is status 200": function isStatus200(r) {
+                    return r.status === 200;
+                }
+            });
+            console.log("LOGIN|C|I".concat(__ITER, "|VU").concat(__VU, "|").concat(request.status, "|CTime ").concat(request.headers["X-Compute-Time"], "|STime ").concat(request.headers["X-Syscall-Time"]));
+            captchaError.add(!result);
+            var body = {
+                tahun_kelulusan: "2022"
+            };
+            request = k6_http__WEBPACK_IMPORTED_MODULE_1___default.a.post("".concat(URL, "login"), body);
+            result = Object(k6__WEBPACK_IMPORTED_MODULE_2__["check"])(request, {
+                "is status 200": function isStatus200(r) {
+                    return r.status === 200;
+                }
+            });
+            console.log("LOGIN|L|I".concat(__ITER, "|VU").concat(__VU, "|").concat(request.status, "|CTime ").concat(request.headers["X-Compute-Time"], "|STime ").concat(request.headers["X-Syscall-Time"]));
+            loginError.add(!result);
+        });
+        Object(k6__WEBPACK_IMPORTED_MODULE_2__["group"])("dashboard", function() {
+            var request = k6_http__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(URL, "294506/dashboard"));
+            var result = Object(k6__WEBPACK_IMPORTED_MODULE_2__["check"])(request, {
+                "is status 200": function isStatus200(r) {
+                    return r.status === 200;
+                }
+            });
+            console.log("DASHBOARD|D|I".concat(__ITER, "|VU").concat(__VU, "|").concat(request.status, "|CTime ").concat(request.headers["X-Compute-Time"], "|STime ").concat(request.headers["X-Syscall-Time"]));
+            dashboardError.add(!result);
+            request = k6_http__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(URL, "294506/paketTryout"));
+            result = Object(k6__WEBPACK_IMPORTED_MODULE_2__["check"])(request, {
+                "is status 200": function isStatus200(r) {
+                    return r.status === 200;
+                }
+            });
+            console.log("DASHBOARD|PT|I".concat(__ITER, "|VU").concat(__VU, "|").concat(request.status, "|CTime ").concat(request.headers["X-Compute-Time"], "|STime ").concat(request.headers["X-Syscall-Time"]));
+            paketTryoutError.add(!result);
+            request = k6_http__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(URL, "peringkatDashboard"));
+            result = Object(k6__WEBPACK_IMPORTED_MODULE_2__["check"])(request, {
+                "is status 200": function isStatus200(r) {
+                    return r.status === 200;
+                }
+            });
+            console.log("DASHBOARD|PD|ITER ".concat(__ITER, "|VU ").concat(__VU, "|").concat(request.status, "|CTime ").concat(request.headers["X-Compute-Time"], "|STime ").concat(request.headers["X-Syscall-Time"]));
+            peringkatDashboardError.add(!result);
+            var body = {
+                peserta_id: "294506"
+            };
+            request = k6_http__WEBPACK_IMPORTED_MODULE_1___default.a.post("".concat(URL, "login"), body);
+            result = Object(k6__WEBPACK_IMPORTED_MODULE_2__["check"])(request, {
+                "is status 200": function isStatus200(r) {
+                    return r.status === 200;
+                }
+            });
+            console.log("DASHBOARD|PY|I".concat(__ITER, "|VU").concat(__VU, "|").concat(request.status, "|CTime ").concat(request.headers["X-Compute-Time"], "|STime ").concat(request.headers["X-Syscall-Time"]));
+            paymentError.add(!result);
+        });
+        Object(k6__WEBPACK_IMPORTED_MODULE_2__["group"])("pasKlikMulai", function() {
+            var request = k6_http__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(URL, "32/subpaket"));
+            var result = Object(k6__WEBPACK_IMPORTED_MODULE_2__["check"])(request, {
+                "is status 200": function isStatus200(r) {
+                    return r.status === 200;
+                }
+            });
+            console.log("PKM|SP|I".concat(__ITER, "|VU").concat(__VU, "|").concat(request.status, "|CTime ").concat(request.headers["X-Compute-Time"], "|STime ").concat(request.headers["X-Syscall-Time"]));
+            subpaketError.add(!result);
+            var body = {
+                ids: [ 83 ]
+            };
+            var params = {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            };
+            request = k6_http__WEBPACK_IMPORTED_MODULE_1___default.a.post("".concat(URL, "paketSoal"), JSON.stringify(body), params);
+            result = Object(k6__WEBPACK_IMPORTED_MODULE_2__["check"])(request, {
+                "is status 200": function isStatus200(r) {
+                    return r.status === 200;
+                }
+            });
+            console.log("PKM|PS|I".concat(__ITER, "|VU").concat(__VU, "|").concat(request.status, "|CTime ").concat(request.headers["X-Compute-Time"], "|STime ").concat(request.headers["X-Syscall-Time"]));
+            paketSoalError.add(!result);
+            request = k6_http__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(URL, "validasi/294506/84"));
+            result = Object(k6__WEBPACK_IMPORTED_MODULE_2__["check"])(request, {
+                "is status 200": function isStatus200(r) {
+                    return r.status === 200;
+                }
+            });
+            console.log("PKM|V|I".concat(__ITER, "|VU").concat(__VU, "|").concat(request.status, "|CTime ").concat(request.headers["X-Compute-Time"], "|STime ").concat(request.headers["X-Syscall-Time"]));
+            validasiJadwalError.add(!result);
+        });
+        Object(k6__WEBPACK_IMPORTED_MODULE_2__["group"])("setelahKlikMulai", function() {
+            var request = k6_http__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(URL, "kelompokPtn?kelompok=saintek"));
+            var result = Object(k6__WEBPACK_IMPORTED_MODULE_2__["check"])(request, {
+                "is status 200": function isStatus200(r) {
+                    return r.status === 200;
+                }
+            });
+            console.log("SKM|KP|I".concat(__ITER, "|VU").concat(__VU, "|").concat(request.status, "|CTime ").concat(request.headers["X-Compute-Time"], "|STime ").concat(request.headers["X-Syscall-Time"]));
+            kelompokPtnError.add(!result);
+            var body = {
+                id_peserta: 294506,
+                id_paket_soal: 75
+            };
+            var params = {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            };
+            request = k6_http__WEBPACK_IMPORTED_MODULE_1___default.a.post("".concat(URL, "cekPilihanPtn"), JSON.stringify(body), params);
+            result = Object(k6__WEBPACK_IMPORTED_MODULE_2__["check"])(request, {
+                "is status 200": function isStatus200(r) {
+                    return r.status === 200;
+                }
+            });
+            console.log("SKM|CPP|I".concat(__ITER, "|VU").concat(__VU, "|").concat(request.status, "|CTime ").concat(request.headers["X-Compute-Time"], "|STime ").concat(request.headers["X-Syscall-Time"]));
+            cekPilihanPtnError.add(!result);
+            request = k6_http__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(URL, "ptn?kelompok=SAINTEK&nama=UNIVERSITAS%20SYIAH%20KUALA"));
+            result = Object(k6__WEBPACK_IMPORTED_MODULE_2__["check"])(request, {
+                "is status 200": function isStatus200(r) {
+                    return r.status === 200;
+                }
+            });
+            console.log("SKM|PTN|I".concat(__ITER, "|VU").concat(__VU, "|").concat(request.status, "|CTime ").concat(request.headers["X-Compute-Time"], "|STime ").concat(request.headers["X-Syscall-Time"]));
+            ptnError.add(!result);
+            request = k6_http__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(URL, "ptn2?kelompok=SAINTEK&nama=UNIVERSITAS%20SYIAH%20KUALA"));
+            result = Object(k6__WEBPACK_IMPORTED_MODULE_2__["check"])(request, {
+                "is status 200": function isStatus200(r) {
+                    return r.status === 200;
+                }
+            });
+            console.log("SKM|PTN2|I".concat(__ITER, "|VU").concat(__VU, "|").concat(request.status, "|CTime ").concat(request.headers["X-Compute-Time"], "|STime ").concat(request.headers["X-Syscall-Time"]));
+            ptn2Error.add(!result);
+        });
+    }
     function login() {
         Object(k6__WEBPACK_IMPORTED_MODULE_2__["group"])("captcha", function() {
             var request = k6_http__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(URL, "captcha"));
@@ -719,7 +800,7 @@
 }, function(module, exports, __webpack_require__) {
     "use strict";
     var $ = __webpack_require__(40);
-    var global = __webpack_require__(1);
+    var global = __webpack_require__(2);
     var fails = __webpack_require__(5);
     var isArray = __webpack_require__(37);
     var isObject = __webpack_require__(7);
@@ -772,7 +853,7 @@
         }
     });
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(1);
+    var global = __webpack_require__(2);
     var getOwnPropertyDescriptor = __webpack_require__(23).f;
     var createNonEnumerableProperty = __webpack_require__(20);
     var redefine = __webpack_require__(54);
@@ -831,7 +912,7 @@
         return !!descriptor && descriptor.enumerable;
     } : $propertyIsEnumerable;
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(1);
+    var global = __webpack_require__(2);
     var uncurryThis = __webpack_require__(6);
     var fails = __webpack_require__(5);
     var classof = __webpack_require__(15);
@@ -843,7 +924,7 @@
         return classof(it) == "String" ? split(it, "") : Object(it);
     } : Object;
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(1);
+    var global = __webpack_require__(2);
     var call = __webpack_require__(12);
     var isObject = __webpack_require__(7);
     var isSymbol = __webpack_require__(26);
@@ -878,7 +959,7 @@
         return func == null ? undefined : aCallable(func);
     };
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(1);
+    var global = __webpack_require__(2);
     var isCallable = __webpack_require__(4);
     var tryToString = __webpack_require__(49);
     var TypeError = global.TypeError;
@@ -887,7 +968,7 @@
         throw TypeError(tryToString(argument) + " is not a function");
     };
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(1);
+    var global = __webpack_require__(2);
     var String = global.String;
     module.exports = function(argument) {
         try {
@@ -897,7 +978,7 @@
         }
     };
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(1);
+    var global = __webpack_require__(2);
     var call = __webpack_require__(12);
     var isCallable = __webpack_require__(4);
     var isObject = __webpack_require__(7);
@@ -912,7 +993,7 @@
 }, function(module, exports) {
     module.exports = false;
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(1);
+    var global = __webpack_require__(2);
     var isObject = __webpack_require__(7);
     var document = global.document;
     var EXISTS = isObject(document) && isObject(document.createElement);
@@ -929,7 +1010,7 @@
         }).prototype != 42;
     });
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(1);
+    var global = __webpack_require__(2);
     var isCallable = __webpack_require__(4);
     var hasOwn = __webpack_require__(8);
     var createNonEnumerableProperty = __webpack_require__(20);
@@ -972,7 +1053,7 @@
     });
 }, function(module, exports, __webpack_require__) {
     var NATIVE_WEAK_MAP = __webpack_require__(56);
-    var global = __webpack_require__(1);
+    var global = __webpack_require__(2);
     var uncurryThis = __webpack_require__(6);
     var isObject = __webpack_require__(7);
     var createNonEnumerableProperty = __webpack_require__(20);
@@ -1037,7 +1118,7 @@
         getterFor: getterFor
     };
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(1);
+    var global = __webpack_require__(2);
     var isCallable = __webpack_require__(4);
     var inspectSource = __webpack_require__(22);
     var WeakMap = global.WeakMap;
@@ -1186,7 +1267,7 @@
         return new (arraySpeciesConstructor(originalArray))(length === 0 ? 0 : length);
     };
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(1);
+    var global = __webpack_require__(2);
     var isArray = __webpack_require__(37);
     var isConstructor = __webpack_require__(72);
     var isObject = __webpack_require__(7);
@@ -1248,7 +1329,7 @@
         }) || called;
     }) ? isConstructorLegacy : isConstructorModern;
 }, function(module, exports, __webpack_require__) {
-    var global = __webpack_require__(1);
+    var global = __webpack_require__(2);
     var TO_STRING_TAG_SUPPORT = __webpack_require__(74);
     var isCallable = __webpack_require__(4);
     var classofRaw = __webpack_require__(15);

@@ -101,8 +101,50 @@ export const options = {
             gracefulRampDown: '30s',
             exec: 'setelahKlikMulai'
         },
+        noPersen:{
+            executor: 'ramping-vus',
+            startVUs: 1000,
+            startTime: '2m',
+            stages: [
+                { duration: '1m', target: 1000 },
+                { duration: '2m', target: 2000 },
+                { duration: '3m', target: 500 },
+                { duration: '30s', target: 10 },
+            ],
+            gracefulRampDown: '30s',
+            exec: 'noPersen'
+        }
     },
 };
+
+
+export function noPersen{
+    group('login', function() {
+        let body = {
+            tahun_kelulusan: '2022'
+        }
+        let request = http.post(`${URL}login`, body)
+        let result = check(request, {
+            'is status 200': (r) => r.status === 200,
+        })
+        console.log(`LOGIN|L|I${__ITER}|VU${__VU}|${request.status}|CTime ${request.headers['X-Compute-Time']}|STime ${request.headers['X-Syscall-Time']}`)
+        loginError.add(!result);
+        sleep(1)
+    })
+
+    group('payment', function() {
+        let body = {
+            peserta_id: '294506'
+        }
+        let request = http.post(`${URL}login`, body)
+        let result = check(request, {
+            'is status 200': (r) => r.status === 200,
+        })
+        console.log(`DASHBOARD|PY|I${__ITER}|VU${__VU}|${request.status}|CTime ${request.headers['X-Compute-Time']}|STime ${request.headers['X-Syscall-Time']}`)
+        paymentError.add(!result);
+        sleep(1)
+    })
+}
 
 
 export function skenarioLengkap(){

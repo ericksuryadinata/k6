@@ -111,13 +111,13 @@ export const options = {
                 { duration: '30s', target: 10 },
             ],
             gracefulRampDown: '30s',
-            exec: 'noPersen'
+            exec: 'onlyPost'
         }
     },
 };
 
 
-export function noPersen(){
+export function onlyPost(){
     group('login', function() {
         let body = {
             tahun_kelulusan: '2022'

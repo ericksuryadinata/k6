@@ -104,7 +104,6 @@ export const options = {
         noPersen:{
             executor: 'ramping-vus',
             startVUs: 1000,
-            startTime: '2m',
             stages: [
                 { duration: '1m', target: 1000 },
                 { duration: '2m', target: 2000 },

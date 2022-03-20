@@ -20,9 +20,9 @@ export const options = {
     scenarios: {
         dashboard: {
             executor: 'ramping-vus',
-            startVUs: 1000,
+            startVUs: 10000,
             stages: [
-                { duration: '1m', target: 1000 },
+                { duration: '5m', target: 10000 },
                 { duration: '2m', target: 2000 },
                 { duration: '3m', target: 500 },
                 { duration: '30s', target: 10 },
@@ -32,9 +32,9 @@ export const options = {
         },
         paketTryout: {
             executor: 'ramping-vus',
-            startVUs: 1000,
+            startVUs: 10000,
             stages: [
-                { duration: '1m', target: 1000 },
+                { duration: '5m', target: 10000 },
                 { duration: '2m', target: 2000 },
                 { duration: '3m', target: 500 },
                 { duration: '30s', target: 10 },
@@ -44,9 +44,9 @@ export const options = {
         },
         peringkatDashboard: {
             executor: 'ramping-vus',
-            startVUs: 1000,
+            startVUs: 10000,
             stages: [
-                { duration: '1m', target: 1000 },
+                { duration: '5m', target: 10000 },
                 { duration: '2m', target: 2000 },
                 { duration: '3m', target: 500 },
                 { duration: '30s', target: 10 },

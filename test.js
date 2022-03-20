@@ -118,7 +118,7 @@ export const options = {
 };
 
 
-export function noPersen{
+export function noPersen(){
     group('login', function() {
         let body = {
             tahun_kelulusan: '2022'

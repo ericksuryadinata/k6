@@ -18,7 +18,7 @@ export const options = {
         'cekPilihanPtnError': ['rate < 0.2'],
     },
     scenarios: {
-        noPersen:{
+        payment:{
             executor: 'ramping-vus',
             startVUs: 1000,
             stages: [
@@ -28,7 +28,31 @@ export const options = {
                 { duration: '30s', target: 10 },
             ],
             gracefulRampDown: '30s',
-            exec: 'onlyPost'
+            exec: 'payment'
+        },
+        paketSoal:{
+            executor: 'ramping-vus',
+            startVUs: 1000,
+            stages: [
+                { duration: '1m', target: 1000 },
+                { duration: '2m', target: 2000 },
+                { duration: '3m', target: 500 },
+                { duration: '30s', target: 10 },
+            ],
+            gracefulRampDown: '30s',
+            exec: 'paketSoal'
+        },
+        cekPilihanPtn:{
+            executor: 'ramping-vus',
+            startVUs: 1000,
+            stages: [
+                { duration: '1m', target: 1000 },
+                { duration: '2m', target: 2000 },
+                { duration: '3m', target: 500 },
+                { duration: '30s', target: 10 },
+            ],
+            gracefulRampDown: '30s',
+            exec: 'cekPilihanPtn'
         }
     },
 };

@@ -331,16 +331,7 @@ export function dashboard(){
 
     
     group('payment', function() {
-        let body = {
-            peserta_id: '294506'
-        }
-        let request = http.post(`${URL}payment`, body)
-        let result = check(request, {
-            'is status 200': (r) => r.status === 200,
-        })
-        console.log(`DASHBOARD|PY|I${__ITER}|VU${__VU}|${request.status}|CTime ${request.headers['X-Compute-Time']}|STime ${request.headers['X-Syscall-Time']}`)
-        paymentError.add(!result);
-        sleep(1)
+        
     })
 }
 

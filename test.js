@@ -135,7 +135,7 @@ export function noPersen(){
         let body = {
             peserta_id: '294506'
         }
-        let request = http.post(`${URL}login`, body)
+        let request = http.post(`${URL}payment`, body)
         let result = check(request, {
             'is status 200': (r) => r.status === 200,
         })
@@ -334,7 +334,7 @@ export function dashboard(){
         let body = {
             peserta_id: '294506'
         }
-        let request = http.post(`${URL}login`, body)
+        let request = http.post(`${URL}payment`, body)
         let result = check(request, {
             'is status 200': (r) => r.status === 200,
         })

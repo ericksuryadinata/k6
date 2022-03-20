@@ -50,57 +50,57 @@ export const options = {
         //     gracefulRampDown: '30s',
         //     exec: 'skenarioLengkap'
         // },
-        loginScenario: {
-            executor: 'ramping-vus',
-            startVUs: 1000,
-            stages: [
-                { duration: '1m', target: 1000 },
-                { duration: '2m', target: 2000 },
-                { duration: '3m', target: 500 },
-                { duration: '30s', target: 10 },
-            ],
-            gracefulRampDown: '30s',
-            exec: 'login'
-        },
-        dashboardScenario: {
-            executor: 'ramping-vus',
-            startVUs: 1000,
-            startTime: '1m',
-            stages: [
-                { duration: '1m', target: 1000 },
-                { duration: '2m', target: 2000 },
-                { duration: '3m', target: 500 },
-                { duration: '30s', target: 10 },
-            ],
-            gracefulRampDown: '30s',
-            exec: 'dashboard'
-        },
-        pasKlikMulaiScenario : {
-            executor: 'ramping-vus',
-            startVUs: 1000,
-            startTime: '2m',
-            stages: [
-                { duration: '1m', target: 1000 },
-                { duration: '2m', target: 2000 },
-                { duration: '3m', target: 500 },
-                { duration: '30s', target: 10 },
-            ],
-            gracefulRampDown: '30s',
-            exec: 'pasKlikMulai'
-        },
-        setelahKlikMulaiScenario : {
-            executor: 'ramping-vus',
-            startVUs: 1000,
-            startTime: '2m',
-            stages: [
-                { duration: '1m', target: 1000 },
-                { duration: '2m', target: 2000 },
-                { duration: '3m', target: 500 },
-                { duration: '30s', target: 10 },
-            ],
-            gracefulRampDown: '30s',
-            exec: 'setelahKlikMulai'
-        },
+        // loginScenario: {
+        //     executor: 'ramping-vus',
+        //     startVUs: 1000,
+        //     stages: [
+        //         { duration: '1m', target: 1000 },
+        //         { duration: '2m', target: 2000 },
+        //         { duration: '3m', target: 500 },
+        //         { duration: '30s', target: 10 },
+        //     ],
+        //     gracefulRampDown: '30s',
+        //     exec: 'login'
+        // },
+        // dashboardScenario: {
+        //     executor: 'ramping-vus',
+        //     startVUs: 1000,
+        //     startTime: '1m',
+        //     stages: [
+        //         { duration: '1m', target: 1000 },
+        //         { duration: '2m', target: 2000 },
+        //         { duration: '3m', target: 500 },
+        //         { duration: '30s', target: 10 },
+        //     ],
+        //     gracefulRampDown: '30s',
+        //     exec: 'dashboard'
+        // },
+        // pasKlikMulaiScenario : {
+        //     executor: 'ramping-vus',
+        //     startVUs: 1000,
+        //     startTime: '2m',
+        //     stages: [
+        //         { duration: '1m', target: 1000 },
+        //         { duration: '2m', target: 2000 },
+        //         { duration: '3m', target: 500 },
+        //         { duration: '30s', target: 10 },
+        //     ],
+        //     gracefulRampDown: '30s',
+        //     exec: 'pasKlikMulai'
+        // },
+        // setelahKlikMulaiScenario : {
+        //     executor: 'ramping-vus',
+        //     startVUs: 1000,
+        //     startTime: '2m',
+        //     stages: [
+        //         { duration: '1m', target: 1000 },
+        //         { duration: '2m', target: 2000 },
+        //         { duration: '3m', target: 500 },
+        //         { duration: '30s', target: 10 },
+        //     ],
+        //     gracefulRampDown: '30s',
+        //     exec: 'setelahKlikMulai'
+        // },
         noPersen:{
             executor: 'ramping-vus',
             startVUs: 1000,
